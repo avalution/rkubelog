@@ -7,6 +7,7 @@ import (
 	"context"
 	"fmt"
 	"time"
+	"os"
 
 	"github.com/boz/kail"
 	"github.com/pkg/errors"
@@ -38,9 +39,10 @@ func CreatePapertrailShipper(ctx context.Context, paperTrailProtocol, paperTrail
 // Log ships the kail event to papertrail asynchronously
 func (l *PapertrailShipper) Log(ev kail.Event) error {
 	if l.papertrailShipperInst != nil && ev != nil && len(ev.Log()) > 0 {
+		clustername := os.Getenv("CLUSTERNAME")
 		payload := &papertrailgo.Payload{
-			Hostname: fmt.Sprintf("%s/%s", ev.Source().Namespace(), ev.Source().Container()),
-			Tag:      fmt.Sprintf("rkubelog/node(%s)/pod(%s)", ev.Source().Node(), ev.Source().Name()),
+			Hostname: clustername,
+			Tag:      fmt.Sprintf("%s/%s (%s)",ev.Source().Namespace(), ev.Source().Container(), ev.Source().Node()),
 			Log:      string(ev.Log()),
 		}
 		return l.papertrailShipperInst.Log(payload)
