@@ -10,20 +10,13 @@ By default, rkubelog runs in the `kube-system` namespace and will observe all lo
 
 To deploy rkubelog:
 
-- Follow the account setup steps in the _How it Works_ section for the logging service of your choice
+- clone this repo to a place where you have kubectl
+- Populate the logging-config-patch.yaml with the right values (see other instructions for Castellan cluster building, including cluster name)
 - Preview the deployment using `kubectl apply -k . --dry-run -o yaml`
 - If all looks good, apply the deployment using `kubectl apply -k .`
 
 
 If you run into issues, please read the _Troubleshooting_ section at the end of this document.
-
-### Static Tags
-We have recently added the ability to set static tags which will get sent with all the logs. 
-
-If you are using several instances of `rKubeLog`, you can use this `TAGS` field to differentiate between the logs from the different environments.
-
-If you are interested in using this capability, you can set the value for `TAGS` in the `logging-config-patch.yaml` file. The value can be any string.
-
 
 ### Using Papertrail
 
@@ -38,24 +31,6 @@ The Papertrail credentials are automatically pulled from a secret named 'logging
 
 For any help with Papertrail, please check out their help page [here](https://documentation.solarwinds.com/en/Success_Center/papertrail/Content/papertrail_Documentation.htm).
 
-### Using Loggly
-
-In order to ship logs to Loggly, you will need a Loggly account. If you don't have one already you can sign up for one [here](https://www.loggly.com/). After you are logged in, you will need to create a `Customer Token` from under the `Source Setup` menu item.
-
-The Loggly credentials are automatically pulled from a secret named 'logging-secret'. Before deploying rkubelog, you need to [create a kubernetes secret](https://kubernetes.io/docs/concepts/configuration/secret/) with that name in the `kube-system` namespace with the following fields:
-
-- `LOGGLY_TOKEN` - customer token from Loggly (__not__ API token)
-
-Also add these default values to disable Papertrail logging (following are just samples, please use your account specific values):
-
-- `PAPERTRAIL_PROTOCOL=`
-- `PAPERTRAIL_HOST=`
-- `PAPERTRAIL_PORT=`
-
-For any help with Loggly, please checkout their help page [here](https://documentation.solarwinds.com/en/Success_Center/loggly/).
-
-
-__Please note:__ If you want to send logs to both Loggly and Papertrail, you can configure both Loggly and Papertrail related values above to valid ones. Most will only want to use one or the other.
 
 ## Development
 

@@ -42,8 +42,8 @@ func (l *PapertrailShipper) Log(ev kail.Event) error {
 		clustername := os.Getenv("CLUSTERNAME")
 		payload := &papertrailgo.Payload{
 			Hostname: clustername,
-			Tag:      fmt.Sprintf("%s/%s (%s)",ev.Source().Namespace(), ev.Source().Container(), ev.Source().Node()),
-			Log:      string(ev.Log()),
+			Tag:      ev.Source().Namespace(),
+			Log:      fmt.Sprintf("%s - %s", ev.Source().Container(), string(ev.Log())),
 		}
 		return l.papertrailShipperInst.Log(payload)
 	}

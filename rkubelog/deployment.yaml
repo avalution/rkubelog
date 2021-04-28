@@ -21,7 +21,7 @@ spec:
     spec:
       serviceAccountName: rkubelog-sa
       containers:
-      - image: avalution/rkubelog:r19CAS1
+      - image: avalution/rkubelog:r19CAS3
         imagePullPolicy: Always
         name: "rkubelog"
         command:
