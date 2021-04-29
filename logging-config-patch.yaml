@@ -6,25 +6,13 @@
   path: /spec/template/spec/containers/0/env
   value:
     - name: PAPERTRAIL_PROTOCOL
-      valueFrom: 
-        secretKeyRef:
-          name: logging-secret
-          key: PAPERTRAIL_PROTOCOL
+      value: ""
     - name: PAPERTRAIL_HOST
-      valueFrom: 
-        secretKeyRef:
-          name: logging-secret
-          key: PAPERTRAIL_HOST
+      value: ""
     - name: PAPERTRAIL_PORT
-      valueFrom: 
-        secretKeyRef:
-          name: logging-secret
-          key: PAPERTRAIL_PORT
+      value: ""
     - name: LOGGLY_TOKEN
-      valueFrom: 
-        secretKeyRef:
-          name: logging-secret
-          key: LOGGLY_TOKEN
+      value: ""
     - name: CLUSTERNAME
       value: ""
 
