@@ -43,7 +43,7 @@ func (l *PapertrailShipper) Log(ev kail.Event) error {
 		payload := &papertrailgo.Payload{
 			Hostname: clustername,
 			Tag:      ev.Source().Namespace(),
-			Log:      fmt.Sprintf("%s - %s", ev.Source().Container(), string(ev.Log())),
+			Log:      fmt.Sprintf("%s - %s", ev.Source().Name(), string(ev.Log())),
 		}
 		return l.papertrailShipperInst.Log(payload)
 	}
